@@ -1,0 +1,14 @@
+---
+applications:
+- name: weixin_personal
+  framework: rails3
+  runtime: ruby19
+  memory: 256M
+  instances: 1
+  url: weixin_personal.${target-base}
+  path: .
+  services:
+    mysql-990b5:
+      vendor: mysql
+      version: '5.1'
+      tier: free
