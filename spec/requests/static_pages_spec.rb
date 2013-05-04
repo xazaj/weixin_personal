@@ -1,29 +1,36 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "StaticPages" do
+describe "Static pages" do
 
-	describe "Home page" do
+  subject { page }
 
-		it "should have the content '微信自媒体平台'" do
-			visit '/static_pages/home'
-			page.should have_content('微信自媒体平台')
-		end
-	end
+  describe "Home page" do
+    before { visit root_path }
 
-	describe "help page" do
-		it "should have the content '帮助'" do
-			visit '/static_pages/help'
-			page.should have_content('帮助')
-		end
-	end
+    it { should have_selector('h2',    text: '微信自媒体平台') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector 'title', text: '| 首页' }
+  end
 
-	describe "about page" do
-		it "should have the content '关于'" do
-			visit '/static_pages/about'
-			page.should have_content('关于')
-		end
-	end
+  describe "Help page" do
+    before { visit help_path }
 
+ #   it { should have_selector('h1',    text: '帮助') }
+    it { should have_selector('title', text: full_title('帮助')) }
+  end
 
+  describe "About page" do
+    before { visit about_path }
+
+  #  it { should have_selector('h1',    text: '关于') }
+    it { should have_selector('title', text: full_title('关于')) }
+  end
+
+  describe "Contact page" do
+    before { visit contact_path }
+
+  #  it { should have_selector('h1',    text: '联系') }
+    it { should have_selector('title', text: full_title('联系')) }
+  end
 end

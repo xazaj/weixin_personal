@@ -1,0 +1,2 @@
+module Weixin::HomeHelper
+end

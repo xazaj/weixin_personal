@@ -1,9 +1,23 @@
 WeixinPersonal::Application.routes.draw do
-  get "static_pages/home"
 
-  get "static_pages/help"
+  get "users/new"
 
-  get "static_pages/about"
+  scope :path => "/weixin", :via => :post do
+    root :to => 'weixin/home#welcome', :constraints => lambda { |request| request.params[:xml][:MsgType] == 'event' && request.params[:xml][:Event] == 'subscribe'}
+    root :to => 'weixin/home#show', :constraints => lambda { |request| request.params[:xml][:MsgType] == 'text' }
+  end
+
+  get "/weixin" => "weixin/home#show"
+
+
+  match '/index', to: 'static_pages#home'
+  
+  match '/help', to: 'static_pages#help'
+  match '/about', to: 'static_pages#about'
+  match '/contact', to: 'static_pages#contact'
+  match '/signup', to: 'weixin/users#new'
+
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
